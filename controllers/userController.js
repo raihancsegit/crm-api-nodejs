@@ -3,19 +3,25 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const User = require('../models/User');
+
+// Create Token
 const createToken = (user) => {
 	return jwt.sign({ user }, "mystrongjwt", {
 		expiresIn: '7d',
 	});
 };
+
+// Register validation
 module.exports.registerValiations = [
 	body('name').not().isEmpty().trim().withMessage('Name is required'),
 	body('email').not().isEmpty().trim().withMessage('Email is required'),
-	body('password')
+	body('password') 
 		.isLength({ min: 6 })
 		.withMessage('Password must be 6 characters long'),
 ];
 
+
+// Register Controller
 module.exports.register = async (req, res) => {
 	const { name, email, password } = req.body;
 	const errors = validationResult(req);
@@ -54,6 +60,9 @@ module.exports.loginValiations = [
 	body('email').not().isEmpty().trim().withMessage('Email is required'),
 	body('password').not().isEmpty().withMessage('Password is required'),
 ];
+
+
+// Login Controller
 module.exports.login = async (req, res) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
