@@ -2,22 +2,50 @@ const { model, Schema } = require('mongoose');
 
 const OrganazationSchema = new Schema(
 	{
-		title: {
+		organaizationName: {
 			type: String,
 			required: true,
 		},
-		body: {
+		phone: {
 			type: String,
-			required: true,
+		},
+		fax: {
+			type: String,
+		},
+		website: {
+			type: String,
+		},
+		linkdin: {
+			type: String,
+		},
+		facebook: {
+			type: String,
+		},
+		twitter: {
+			type: String,
+		},
+		emailDomain: {
+			type: String,
+		},
+		billingAddress: {
+			type: String,
+		},
+		billingCity: {
+			type: String,
+		},
+		billingState: {
+			type: String,
+		},
+		billingPostalCode: {
+			type: String,
+		},
+		billingCountry: {
+			type: String,
 		},
 		description: {
 			type: String,
-			required: true,
 		},
-		slug: {
-			type: String,
-			required: true,
-		},
+		tags: { type: [String], index: true }
 	},
 	{ timestamps: true }
 );

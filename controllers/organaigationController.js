@@ -8,36 +8,30 @@ const Organaigation = require('../models/Organaigation');
 const CommentSchema = require('../models/Comment');
 
 module.exports.createOrganaigation = async (req, res) => {
-		const { title, body, description, slug} = req.body;
+		const { organaizationName, phone, fax, website,linkdin,facebook,twitter,emailDomain,billingAddress,billingCity,billingState,billingPostalCode,billingCountry,description,tags} = req.body;
 		const errors = [];
-		if (title === '') {
-			errors.push({ msg: 'Title is required' });
-		}
-		if (body === '') {
-			errors.push({ msg: 'Body is required' });
-		}
-		if (description === '') {
-			errors.push({ msg: 'Description is required' });
-		}
-		if (slug === '') {
-			errors.push({ msg: 'Slug is required' });
-		}
-		
-		const checkSlug = await Organaigation.findOne({ slug });
-		if (checkSlug) {
-			errors.push({ msg: 'Please choose a unique slug/URL' });
+		if (organaizationName === '') {
+			errors.push({ msg: 'Organaization Name is required' });
 		}
          else {
 			
 					try {
 						const response = await Organaigation.create({
-							title,
-							body,
-							//image: files.image.name,
+							organaizationName,
+							phone,
+							fax,
+							website,
+							linkdin,
+							facebook,
+							twitter,
+							emailDomain,
+							billingAddress,
+							billingCity,
+							billingState,
+							billingPostalCode,
+							billingCountry,
 							description,
-							slug,
-							//userName: name,
-							//userId: id,
+							tags
 						});
 						return res.status(200).json({
 							msg: 'Your organaigation has been created successfully',
@@ -51,6 +45,7 @@ module.exports.createOrganaigation = async (req, res) => {
 		}
 	
 };
+
 module.exports.fetchOrganaigations = async (req, res) => {
 	const id = req.params.id;
 	const page = req.params.page;
@@ -78,21 +73,10 @@ module.exports.fetchOrganaigation = async (req, res) => {
 	}
 };
 module.exports.updateValidations = [
-	body('title').notEmpty().trim().withMessage('Title is required'),
-	body('body')
-		.notEmpty()
-		.trim()
-		.custom((value) => {
-			let bodyValue = value.replace(/\n/g, '');
-			if (htmlToText(bodyValue).trim().length === 0) {
-				return false;
-			} else {
-				return true;
-			}
-		})
-		.withMessage('Body is required'),
-	body('description').notEmpty().trim().withMessage('Description is required'),
+	body('organaizationName').notEmpty().trim().withMessage('Organaization Name is required'),
 ];
+
+
 module.exports.updateOrganaigation = async (req, res) => {
 	const { title, body, description, id } = req.body;
 	const errors = validationResult(req);
