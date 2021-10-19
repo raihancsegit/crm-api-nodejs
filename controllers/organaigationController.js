@@ -62,32 +62,47 @@ module.exports.fetchOrganaigations = async (req, res) => {
 		return res.status(500).json({ errors: error, msg: error.message });
 	}
 };
+
 module.exports.fetchOrganaigation = async (req, res) => {
 	const id = req.params.id;
 	try {
-		const Organaigation = await Organaigation.findOne({ _id: id });
-		return res.status(200).json({ Organaigation });
+		const organaization = await Organaigation.findOne({ _id: id });
+		return res.status(200).json({ organaization });
 	} catch (error) {
 		console.log(error.message);
 		return res.status(500).json({ errors: error, msg: error.message });
 	}
 };
+
 module.exports.updateValidations = [
 	body('organaizationName').notEmpty().trim().withMessage('Organaization Name is required'),
 ];
 
 
 module.exports.updateOrganaigation = async (req, res) => {
-	const { title, body, description, id } = req.body;
+	const { organaizationName, phone, fax, website,linkdin,facebook,twitter,emailDomain,billingAddress,billingCity,billingState,billingPostalCode,billingCountry,description,tags} = req.body;
 	const errors = validationResult(req);
+	const id = req.params.id;
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		try {
 			const response = await Organaigation.findByIdAndUpdate(id, {
-				title,
-				body,
-				description,
+							organaizationName,
+							phone,
+							fax,
+							website,
+							linkdin,
+							facebook,
+							twitter,
+							emailDomain,
+							billingAddress,
+							billingCity,
+							billingState,
+							billingPostalCode,
+							billingCountry,
+							description,
+							tags
 			});
 			return res.status(200).json({ msg: 'Your organaigation has been updated' });
 		} catch (error) {
@@ -96,42 +111,6 @@ module.exports.updateOrganaigation = async (req, res) => {
 	}
 };
 
-module.exports.updateImage = (req, res) => {
-	const form = formidable({ multiples: true });
-	form.parse(req, (errors, fields, files) => {
-		const { id } = fields;
-		const imageErrors = [];
-		if (Object.keys(files).length === 0) {
-			imageErrors.push({ msg: 'Please choose image' });
-		} else {
-			const { type } = files.image;
-			const split = type.split('/');
-			const extension = split[1].toLowerCase();
-			if (extension !== 'jpg' && extension !== 'jpeg' && extension !== 'png') {
-				imageErrors.push({ msg: `${extension} is not a valid extension` });
-			} else {
-				files.image.name = uuidv4() + '.' + extension;
-			}
-		}
-		if (imageErrors.length !== 0) {
-			return res.status(400).json({ errors: imageErrors });
-		} else {
-			const newPath = __dirname + `/../client/build/images/${files.image.name}`;
-			fs.copyFile(files.image.path, newPath, async (error) => {
-				if (!error) {
-					try {
-						const response = await Organaigation.findByIdAndUpdate(id, {
-							image: files.image.name,
-						});
-						return res.status(200).json({ msg: 'Your image has been updated' });
-					} catch (error) {
-						return res.status(500).json({ errors: error, msg: error.message });
-					}
-				}
-			});
-		}
-	});
-};
 module.exports.deleteOrganaigation = async (req, res) => {
 	const id = req.params.id;
 	try {
@@ -141,6 +120,8 @@ module.exports.deleteOrganaigation = async (req, res) => {
 		return res.status(500).json({ errors: error, msg: error.message });
 	}
 };
+
+
 module.exports.home = async (req, res) => {
 	const page = req.params.page;
 	const perPage = 6;

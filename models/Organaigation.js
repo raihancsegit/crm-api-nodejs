@@ -45,7 +45,7 @@ const OrganazationSchema = new Schema(
 		description: {
 			type: String,
 		},
-		tags: { type: [String], index: true }
+		tags: { type: [String]}
 	},
 	{ timestamps: true }
 );
