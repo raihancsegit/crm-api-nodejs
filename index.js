@@ -5,6 +5,7 @@ const path = require('path');
 const router = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 const organaigationRoutes = require('./routes/organigationRoutes');
+const contactRoutes = require('./routes/contactRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 require('dotenv').config();
 const app = express();
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 app.use('/', router);
 app.use('/', postRoutes);
 app.use('/',organaigationRoutes);
+app.use('/',contactRoutes);
 app.use('/', profileRoutes);
 const PORT = process.env.PORT || 5000;
 

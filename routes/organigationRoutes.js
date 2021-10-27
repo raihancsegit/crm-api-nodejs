@@ -18,7 +18,7 @@ router.post('/create_organization', [auth, updateValidations],createOrganaigatio
 router.get('/delete_organization/:id', auth, deleteOrganaigation);
 router.post('/update_organization/:id', [auth, updateValidations], updateOrganaigation);
 
-router.get('/organizations/:id/:page', auth, fetchOrganaigations);
+router.get('/details_organizations/:id/:page', auth, fetchOrganaigations);
 router.get('/details_organization/:id', auth, fetchOrganaigation);
 
 
