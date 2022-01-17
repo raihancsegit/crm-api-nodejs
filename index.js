@@ -9,11 +9,12 @@ const contactRoutes = require('./routes/contactRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 require('dotenv').config();
+const cors = require('cors');
 const app = express();
 
 // connect mongodb database
 connect();
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use('/', router);
 app.use('/', postRoutes);

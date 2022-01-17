@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {
 	createOrganaigation,
+	allOrganaigation,
 	fetchOrganaigations,
 	fetchOrganaigation,
 	updateOrganaigation,
@@ -14,7 +15,15 @@ const {
 
 const auth = require('../utils/auth');
 
-router.post('/create_organization', [auth, updateValidations],createOrganaigation);
+
+//with auth
+//router.post('/create_organization', [auth, updateValidations],createOrganaigation);
+
+
+// without auth
+router.post('/create_organization', updateValidations,createOrganaigation);
+router.get('/all_organization',allOrganaigation);
+
 router.get('/delete_organization/:id', auth, deleteOrganaigation);
 router.post('/update_organization/:id', [auth, updateValidations], updateOrganaigation);
 

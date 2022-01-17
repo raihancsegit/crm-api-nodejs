@@ -46,6 +46,15 @@ module.exports.createOrganaigation = async (req, res) => {
 	
 };
 
+module.exports.allOrganaigation = async (req, res) => {
+    try {
+        const allGetOrganaigation = await Organaigation.find({});
+        res.json(allGetOrganaigation);
+    }catch (error) {
+		return res.status(500).json({ errors: error, msg: error.message });
+    }
+}
+
 module.exports.fetchOrganaigations = async (req, res) => {
 	const id = req.params.id;
 	const page = req.params.page;
