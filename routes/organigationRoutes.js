@@ -23,8 +23,8 @@ const auth = require('../utils/auth');
 // without auth
 router.post('/create_organization', updateValidations,createOrganaigation);
 router.get('/all_organization',allOrganaigation);
+router.get('/delete_organization/:id', deleteOrganaigation);
 
-router.get('/delete_organization/:id', auth, deleteOrganaigation);
 router.post('/update_organization/:id', [auth, updateValidations], updateOrganaigation);
 
 router.get('/details_organizations/:id/:page', auth, fetchOrganaigations);
