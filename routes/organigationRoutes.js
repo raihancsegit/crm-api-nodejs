@@ -24,14 +24,11 @@ const auth = require('../utils/auth');
 router.post('/create_organization', updateValidations,createOrganaigation);
 router.get('/all_organization',allOrganaigation);
 router.get('/delete_organization/:id', deleteOrganaigation);
+router.post('/update_organization/:id', updateValidations, updateOrganaigation);
+router.get('/details_organization/:id', fetchOrganaigation);
 
-router.post('/update_organization/:id', [auth, updateValidations], updateOrganaigation);
 
 router.get('/details_organizations/:id/:page', auth, fetchOrganaigations);
-router.get('/details_organization/:id', auth, fetchOrganaigation);
-
-
-
 router.get('/home/:page', home);
 router.get('/explore/:id', OrganaigationDetails);
 router.post('/comment', auth, OrganaigationComment);
